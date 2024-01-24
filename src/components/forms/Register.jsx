@@ -3,8 +3,10 @@ import { useState } from "react"
 export default function Register () {
     const [user, setUser] = useState ({username: '', email: '', password: ''})
 
-    function handleChange(e,k) {
-        setUser({...user, k: e.target.value})
+    function handleSubmit(e){
+        e.preventDefault()
+        console.log(user, 'form submitted');
+        setUser({username:'',email:'',password:''})
     }
 
     return (

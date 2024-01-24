@@ -1,9 +1,33 @@
 .app{
-  background-color:darkblue;
+  background-color:rgb(10, 10, 48);
   color: rgb(244, 237, 237);
-  min-height: 900px ;
+  min-height: 10000px ;
 }
 
+.header {
+  border-bottom: 1px solid #f8f4f4;
+}
+
+.sidebar {
+  width: 120px;
+  margin: 5px;
+  position: sticky;
+  top: 110px;
+  align-self: flex-start;
+  align-items: start;
+}
+
+.sidebar .nav-item {
+  width: 90%;
+}
+
+.sidebar a {
+  color: #d0cdcd;
+}
+
+.sidebar a:hover {
+  background-color:rgb(100, 97, 97);
+}
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -2,20 +2,24 @@ import Container from 'react-bootstrap/Container'
 
 import { Pizzas } from "./components/Pizzas"
 import Header from './components/Header'
+import Body from './components/Body'
+import PizzaWinner from './components/PizzaWinner'
+import Register from './components/forms/Register'
 
 export default function App() {
 
 
-
   return (
-    <Container fluid data-bs-theme='blue' className='app'>
+    <Container fluid data-bs-theme='dark' className='app'>
       <Header />
-
-      <Pizzas></Pizzas>
+      <Body>
+        {/* <Pizzas /> */}
+        {/* <PizzaWinner /> */}
+        <Register />
+      </Body>
     </Container>
   )
 }
-
 // import Container from 'react-bootstrap/Container'
 
 // import { Pizzas } from "./components/Pizzas"
