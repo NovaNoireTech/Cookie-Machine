@@ -4,7 +4,7 @@ import { Pizzas } from "./components/Pizzas"
 import Header from './components/Header'
 import Body from './components/Body'
 import PizzaWinner from './components/PizzaWinner'
-import Register from './components/forms/Register'
+import PizzaFavorites from './components/forms/PizzaFavorites'
 
 export default function App() {
 
@@ -13,9 +13,11 @@ export default function App() {
     <Container fluid data-bs-theme='dark' className='app'>
       <Header />
       <Body>
+        <PizzaFavorites/>
         {/* <Pizzas /> */}
         {/* <PizzaWinner /> */}
-        <Register />
+        {/* <Users /> */}
+        {/* <Register /> */}
       </Body>
     </Container>
   )
