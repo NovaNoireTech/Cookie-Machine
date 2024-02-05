@@ -5,7 +5,7 @@ const Register = () => {
     const [toppings, setToppings] = useState ([])
 
     async function registerUser(){
-      const res = await fetch('http://127.0.0.1:5000/register',{
+      const res = await fetch('https://a-better-one.onrender.com/register',{
           method: "PIZZA",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(user)

@@ -1,30 +1,36 @@
-import { useEffect } from "react"
-import Spinner from 'react-bootstrap/Spinner'
+import { useState, useEffect } from "react";
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function Users() {
+    const [users, setUser] = useState([]);
 
-    const [users, setUser ] = useState([])
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await fetch('https://a-better-one.onrender.com/user'); //the code for api joint
+                if (res.ok) {
+                    const data = await res.json();
+                    setUser(data);
+                } else {
+                    console.log('Error:', res.status);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        })();
+    }, []);
 
-    useEffect(()=>{
-      (async () => {
-        const res = await fetch('http://127.0.0.1:5000/user') //the code for api joint
-        if (res.ok) {
-          const data = await res.json()
+    if (users.length === 0) {
+        return <Spinner animation="border" role="status">
+                   <span className="sr-only">Loading...</span>
+               </Spinner>;
+    }
 
-          setUser(data)
-        }  else console.log('error');
-      })()
-    }, [])
-    
-      if(users.length ===0){
-        return <Spinner />
-      }
-
-      return (
+    return (
         <>
-            { users.map(user => {
-                return <p key={user.id}>{user.username}</p>
+            {users.map(user => {
+                return <p key={user.id}>{user.username}</p>;
             })}
         </>
-      )
-    }
+    );
+}
