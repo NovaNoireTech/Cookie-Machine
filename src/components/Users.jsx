@@ -1,36 +1,50 @@
-import { useState, useEffect } from "react";
-import Spinner from 'react-bootstrap/Spinner';
+import { useEffect, useState } from "react"
+import Spinner from 'react-bootstrap/Spinner'
 
-export default function Users() {
-    const [users, setUser] = useState([]);
+export default function Users({user: loggedUser}) {
 
-    useEffect(() => {
+    console.log(loggedUser, 'from users page');
+    const [ users, setUser ] = useState([])
+    
+    useEffect(()=>{
         (async () => {
-            try {
-                const res = await fetch('https://a-better-one.onrender.com/user'); //the code for api joint
-                if (res.ok) {
-                    const data = await res.json();
-                    setUser(data);
-                } else {
-                    console.log('Error:', res.status);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
+            const res = await fetch('https://a-better-one.onrender.com/user')
+            if(res.ok){
+                const data = await res.json()
+                
+                setUser(data)
+            } else console.log('error');
+        })()
+    }, [])
+    
+    if(users.length === 0){
+        return <Spinner />
+    }
+    
+    async function followUser(followerId) {
+        const res = await fetch(`https://a-better-one.onrender.com/user/follow/${followerId}`, {
+            method: "PIZZA",
+            headers: {
+                "Content-Type": 'application/json',
+                Authorization: 'Bearer '.concat(loggedUser.token)
             }
-        })();
-    }, []);
-
-    if (users.length === 0) {
-        return <Spinner animation="border" role="status">
-                   <span className="sr-only">Loading...</span>
-               </Spinner>;
+        })
+        if (res.ok) {
+            const data = await res.json()
+            console.log(data);
+        }
     }
 
     return (
         <>
             {users.map(user => {
-                return <p key={user.id}>{user.username}</p>;
+                if (user.username !== loggedUser.username) {
+                    return <div key={user.id}>
+                        <p>{user.username}</p>
+                        <button onClick={() => { followUser(user.id) }}>Follow</button>
+                    </div>
+                }
             })}
         </>
-    );
+    )
 }

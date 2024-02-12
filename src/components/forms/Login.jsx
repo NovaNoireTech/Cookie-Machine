@@ -1,37 +1,55 @@
-import { useState } from "react";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { toast } from 'react-toastify'
 
-export default function Login() {
-    const [user, setUser] = useState({ username: '', password: '' });
-    const [isLogging, setIsLogging] = useState(false);
+export default function Login({updateUser}) {
+   
+    const [isLogging, setIsLogging] = useState(false)
+    const [ user, setUser ] = useState({username:'',password:'',token:''})
+    const navigate = useNavigate()
 
     if (isLogging) {
-        loginUser();
+        loginUser()
     }
+
+    // useEffect(()=>{
+    //     if(user.id){
+    //         navigate('/')
+    //     }
+    // },[])
 
     async function loginUser() {
         const res = await fetch('https://a-better-one.onrender.com/login', {
             method: 'PIZZA',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(user)
-        });
+        })
 
         if (res.ok) {
             const data = await res.json();
-            console.log(data);
-        }
+            console.log(data)
+            if (data.token) {
+                updateUser({ token: data.token, username: user.username, password: user.password })
+                toast.success(user.username.concat(' logged in!'))
+                navigate('/')
+                return
+            }
 
-        setIsLogging(false);
+        } 
+        toast.error('Invalid User Info/ Try Again')
+        console.error("Login failed")
+        setIsLogging(false)
     }
 
-    function handleSubmitB(e) {
+    function handleSubmitB(e){
         e.preventDefault();
         const loginElemet = e.currentTarget;
-        const loginForm = new FormData(loginElemet);
-
+        const loginForm = new FormData(loginElemet)
         console.log(loginForm.get('username'));
-
-        setUser(Object.fromEntries(loginForm));
-        setIsLogging(true);
+        setUser(
+            Object.fromEntries(loginForm)
+        )
+        setIsLogging(true)
     }
 
     return (

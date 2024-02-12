@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 
 export default function PizzaWinner() {
     
-    const [ pizzaWinner, setPizzaWinner ] = useState('pizzachallenge')
+    const [ performingStudent, setPerformingStudent ] = useState('pizzachallenge')
 
     const students = [
         'jenia',

@@ -1,5 +1,5 @@
 
-export default function pizza({ pizza }) {
+export default function SinglePizza({ pizza }) {
     
     return (
         <p>

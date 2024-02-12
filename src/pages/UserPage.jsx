@@ -13,7 +13,7 @@ export default function UserPage() {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch('http://127.0.0.1:5000/user/'.concat(username))
+            const res = await fetch('https://a-better-one.onrender.com//user/'.concat(username))
             if (res.ok) {
                 const data = await res.json()
                 console.log(data);
@@ -26,6 +26,11 @@ export default function UserPage() {
     if (!user) return <Spinner />
 
     return (
+        <>
         <h2>{user.username}</h2>
+        {user.pizzas.map((pizza) => {
+                return <p key={pizza.id}>{pizza.body} <small>{pizza.timestamp}</small> </p>
+            })}
+        </>
     )
 }
